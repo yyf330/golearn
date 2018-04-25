@@ -1,5 +1,5 @@
 # golearn
-test1 ----------结构体struct 以及结构体指针相关测试
+test1 ----------结构体struct 以及结构体指针相关测试\n
 test2 ----------mysql库使用
 test3 -----------结构体class模型学习
 test4 ----------fibonacci函数实现以及闭包结构体继承学习
