@@ -1,0 +1,17 @@
+drop TABLE if exists `user`;  
+CREATE TABLE `user` (  
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水号',  
+  `userName` varchar(45) NOT NULL COMMENT '用户名【不可更改】',  
+  `password` varchar(255) NOT NULL COMMENT '密码',  
+  `nickName` varchar(45) NOT NULL COMMENT '昵称',  
+  `registTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '用户注册时间',  
+  `lastTimeLogin` datetime DEFAULT NULL COMMENT '上次登录时间',  
+  `newLoginTime` datetime DEFAULT NULL COMMENT '最新登录时间（当前登录时间）',  
+  `bak` varchar(1000) DEFAULT NULL COMMENT '备注',  
+  `online` char(1) DEFAULT 'N' COMMENT '当前在线，Y/N\nY：在线\nN：不在线',  
+  `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',  
+  `creator` varchar(45) DEFAULT NULL COMMENT '记录创建人',  
+  `updateTime` datetime DEFAULT NULL COMMENT '记录修改时间',  
+  `updator` varchar(45) DEFAULT NULL COMMENT '记录修改人',  
+  PRIMARY KEY (`id`,`userName`,`nickName`)  
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='All Registered users';  
