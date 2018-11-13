@@ -10,7 +10,9 @@ func Producer(queue chan<- int) {
 	for i := 0; i < 10; i++ {
 		queue <- i
 		fmt.Println("produce value is:", i)
+
 		//time.Sleep(10 * time.Second)
+
 	}
 }
 
@@ -22,6 +24,7 @@ func Consumer(queue <-chan int) {
 }
 
 func main() {
+
 	//fmt.Println("生产者消费者模拟")
 	c := make(chan int, 1)
 	cc := make(chan int, 1)
@@ -45,6 +48,7 @@ func main() {
 
 	}
 	fmt.Println("end")
+
 
 	time.Sleep(15 * time.Second)
 

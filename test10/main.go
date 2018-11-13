@@ -1,6 +1,7 @@
 package main
 
 import (
+
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -44,5 +45,6 @@ func main() {
 	//替换
 	newContent := strings.Replace(content, "192.168.1.153", "192.168.1.154", -1)
 	fmt.Println(newContent)
+
 
 }
