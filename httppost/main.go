@@ -9,20 +9,42 @@ import (
 	"encoding/json"
 )
 
-type ServerResp struct {
-	Code    string      `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+type Masterendpoints struct {
+	ClusterInstanceId string `json:"ClusterInstanceId"`
+	ClusterName       string `json:"ClusterName"`
+	Status            string `json:"Status"`
+	Description       string `json:"Description"`
+	ClusterCIDR       string `json:"ClusterCIDR"`
+	ServiceCIDR       string `json:"ServiceCIDR"`
+	MasterEndpoint    string `json:"MasterEndpoint"`
+	CreateTime        string `json:"CreateTime"`
+	UpdateTime        string `json:"UpdateTime"`
+	K8sVersion        string `json:"K8sVersion"`
+	CaCrt             string `json:"CaCrt"`
+	ClusterId         string `json:"ClusterId"`
+	AdminPasswd       string `json:"AdminPasswd"`
+}
+type TCEResponse struct {
+	EndpointsDetail []Masterendpoints `json:"masterEndpoints"`
+	TotalNum        int               `json:"totalNum"`
+	RequestId       string            `json:"RequestId"`
+}
+
+type TCEServerResp struct {
+	Response TCEResponse `json:"Response"`
 }
 
 //
-func main(){
-	jsonStr :=[]byte(`{"Name":"dl-test","TenantId":"b8a0074b63c34b8297cffb13d3a13dd2","EnvId":"4ce63d9c-8465-4756-9296-e8c7a6c2e727","Type":"static","ServerIP":"10.0.90.48","ServerPath":"/test","Reclaiming":"Delete","Capacity":"1G","AccessModes":"ReadWriteMany","Driver":"nfs"}`)
-	url:= "http://localhost:8080/whale/v1/pvc"
+func main() {
+	clusterid := "cls-1w7zlz1x"
+	json_string := fmt.Sprintf(`{"Version":"","RequestId":"","Action":"qcloud.container.getMasterEndpoints","Uin":"",
+                      "AppId":1255000059,"SubAccountUin":"12345","ClusterId":"%s","Region":"shanghai","Offest":0,"Limit":10}`, clusterid)
+	jsonStr := []byte(json_string)
+	url := "http://shanghai.operation.ccs.tencentyun.com/cis/api"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
 
-	respObj := ServerResp{}
+	respObj := TCEServerResp{}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -32,7 +54,7 @@ func main(){
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	json.Unmarshal(body,&respObj)
-	fmt.Println(respObj.Code)
+	json.Unmarshal(body, &respObj)
+	fmt.Println(respObj)
 
 }
