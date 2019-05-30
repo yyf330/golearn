@@ -31,4 +31,12 @@ func test_named()(i int) {
 func main() {
 	fmt.Println("return:", test_unnamed())
 	fmt.Println("return:", test_named())
+	defer func(){
+		fmt.Println("112")
+	}()
+	defer func(){
+		fmt.Println("1333312")
+
+	}()
+	fmt.Println("dlskdjflj")
 }
