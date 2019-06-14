@@ -79,7 +79,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 #### 安装kubeadm
 
 ```
-yum install -y kubelet-1.10.9 kubeadm-1.10.9 kubectl-1.10.9 --disableexcludes=kubernetes
+yum install -y kubelet-1.10.9 kubeadm-1.10.9 kubectl-1.10.9 kubernetes-cni-0.6.0 --disableexcludes=kubernetes
 systemctl enable docker && systemctl start docker
 systemctl enable kubelet && systemctl start kubelet
 ```
@@ -268,7 +268,7 @@ done
 
 Docker-compose:
 
-以node01为例
+以node01为例(其他node上的  ip1是当前node的ip)
 
 ```
 version: "2"
@@ -370,5 +370,8 @@ scp -r /etc/kubernetes/pki  node03:/etc/kubernetes/
 kubeadm init --config config.yaml
 ```
 
-
-
+错误修改
+ unable to check if the container runtime at “/var/run/dockershim.sock” is running: exit status 
+```
+rm -f /usr/bin/crictl
+```
